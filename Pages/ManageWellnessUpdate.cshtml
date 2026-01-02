@@ -1,41 +1,95 @@
 ﻿@page
-@model MedUnity.Pages.ManageWellnessUpdateModel
+@model ManageWellnessUpdateModel
 @{
+    ViewData["Title"] = "MangeWellness";
 }
-<center> 
 
-<h4> Create Health Update </h4>
+<center>
 
+    <h4> Create Health Update </h4>
 
-<div class="manwellfrom">
-    <br />
-    <br />
-<form method="post">
-    <div class="manwelltitle">
-    <strong> Title </strong>
+    <div class="manwellfrom">
+        <form method="post" enctype="multipart/form-data">
 
-    <input type="text" name= "Title"required />
+            <div class="manwelltitle">
+                <strong>Title</strong>
+                <input asp-for="WellnessUpdate.Title" placeholder="Title" />
+                <span asp-validation-for="WellnessUpdate.Title"></span>
+            </div>
+
+            <br />
+
+            <div class="manwellcontext">
+                <strong>Content</strong>
+                <textarea asp-for="WellnessUpdate.Content" rows="4"></textarea>
+                <span asp-validation-for="WellnessUpdate.Content"></span>
+            </div>
+
+            <br />
+
+            <div class="manwellimg">
+                <strong>Add Image</strong>
+                <input type="file" asp-for="ImageFile" accept="image/png, image/jpeg" />
+            </div>
+
+            <br />
+
+            <div class="manwellsource">
+                <strong>Source</strong>
+                <input asp-for="WellnessUpdate.SourceUrl" />
+                <span asp-validation-for="WellnessUpdate.SourceUrl"></span>
+            </div>
+
+            <br />
+            <button type="submit">Submit</button>
+
+        </form>
     </div>
-    <br />
 
-    <div class="manwellcontext">
-    <strong>  Content</strong>
-    
-    <textarea name="Content" rows="4" required  /> </textarea>
-    </div>
+    <br /><br />
+    <h4>All Wellness Updates</h4>
 
-    <br />
-    <div class="manwellimg">
-        <strong> Add Image</strong>
-        <input type="file"  id="image_input" name="Addimage" accept="image/png, image/jpeg">
-    </div>
+    <table border="1" cellpadding="5" cellspacing="0" width="80%">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Image</th>
+                <th>Source</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.AllUpdates)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@(item.Content.Length > 100 ? item.Content.Substring(0, 100) + "..." : item.Content)</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ImagePath))
+                        {
+                            <img src="@item.ImagePath" width="100" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.SourceUrl))
+                        {
+                            <a href="@item.SourceUrl" target="_blank">Link</a>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td>@item.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-    <br />
-    <div class="manwellsource">
-        <strong> Source </strong>
-        <input type="Text" name="Source" />
-    </div>
-</form>
-
-</div>
 </center>
