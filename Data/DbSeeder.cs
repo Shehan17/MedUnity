@@ -16,10 +16,9 @@ namespace MedUnity.Data
 
                 var admin = new Admin
                 {
-                    Email = "admin@example.com"
+                    Email = "admin@email.com"
                 };
 
-               
                 admin.PasswordHash = passwordHasher.HashPassword(admin, "admin");
 
                 context.Admin.Add(admin);
