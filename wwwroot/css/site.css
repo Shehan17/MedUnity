@@ -21,6 +21,7 @@ html {
 }
 
 body {
+    margin-top: 70px;
   margin-bottom: 60px;
   font-family : Google sans;
 }
@@ -45,3 +46,5 @@ body {
     .dark-submit:active {
         transform: scale(0.98);
     }
+
+
