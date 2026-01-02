@@ -36,6 +36,14 @@ namespace MedUnity.Pages
 
         public void OnGet()
         {
+            var p = new Patient
+            {
+                Email = "",
+                FirstName = "",
+                LastName = "",
+                PhoneNumber = "0521654321",
+                PasswordHash = "",
+            };
         }
 
         public IActionResult OnPost()
@@ -50,8 +58,11 @@ namespace MedUnity.Pages
                 AppointmentDate = AppointmentDate,
                 TimeSlot = TimeSlot,
                 DoctorSpecialty = DoctorSpecialization,
-
-
+                PatientId = 0,
+                Status = "Pending",
+                Patient = null,
+                RejectedReason = "",
+                Reason = ReasonForVisit
 
             };
 
