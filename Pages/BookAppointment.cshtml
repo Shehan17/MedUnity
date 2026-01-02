@@ -10,35 +10,35 @@
     </head>
 
     <body>
+
+        <h2 class="bg-black text-white text-center">Make Your Appointment here</h2>
         <form method=" post">
 
-        <div class="appointmentdate">
-
-            <input type="date" required />
+        <div>
+            <label class="fw-bold">Date</label>
+            <input class="form-select" type="date" required />
         </div>
 
-        <br />
-        <div class="timeslot">
-
-            <strong>Time Slot </strong>
-            <select required>
-            <option value="">Select Time Slot </option>
-            <option> 8.00 - 9.00 </option>
-            <option> 9.00 - 10.00 </option>
-            <option> 10.00 - 11.00 </option>
-            <option> 11.00 - 12.00 </option>
-            <option> 12.00 - 13.00 </option>
-            <option> 13.00 - 14.00 </option>
-            <option> 14.00 - 15.00 </option>
-            <option> 15.00 - 16.00 </option>
-            <option> 16.00 - 17.00 </option>
+        <div class="timeslot mt-3">
+            <label class="fw-bold">Time Slot</label>
+            <select class="form-select" required>
+                <option value="">Select Time Slot</option>
+                <option>8.00 - 9.00</option>
+                <option>9.00 - 10.00</option>
+                <option>10.00 - 11.00</option>
+                <option>11.00 - 12.00</option>
+                <option>12.00 - 13.00</option>
+                <option>13.00 - 14.00</option>
+                <option>14.00 - 15.00</option>
+                <option>15.00 - 16.00</option>
+                <option>16.00 - 17.00</option>
             </select>
         </div>
-        <br />
 
-        <div class="DoctorSpecial">
-            <strong> Doctor Specialization</strong>
-            <select required>
+
+        <div class="DoctorSpecial mt-3">
+            <label class="fw-bold"> Doctor Specialization</label>
+            <select class="form-select" required>
                 <option value="">Select Specialization </option>
                 <option> General</option>
                 <option> Pediatric</option>
@@ -48,20 +48,22 @@
             </select>
         </div>
 
-        <div class="reasonforvisit">
-            <input type="text" rows="4" placeholder="Enter reason to visit"/>
+        <div class="reasonforvisit mt-3">
+            <label class="fw-bold">Reason</label>
+            <input class="form-select" type="text" rows="4" placeholder="Enter reason to visit"/>
         </div>
 
-        <br />
-
-        <div class=" appointmentphone">
-            <input type="text" placeholder="Enter your Tel-No" required/>
+        <div class=" appointmentphone mt-3">
+            <label class="fw-bold">Contact Number</label>
+            <input class="form-select" type="text" placeholder="Enter your contact no:" required/>
         </div>
 
-        <br />
-        <button type="submit">
-           Place Appointment
-        </button>
+        <div class="text-center">
+
+            <button type = "submit" class="btn dark-submit mt-4 w-50 ">
+                Place Appointment
+            </button>
+        </div>
 
         </form>
 
