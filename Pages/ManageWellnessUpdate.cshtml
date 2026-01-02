@@ -87,9 +87,84 @@
                         }
                     </td>
                     <td>@item.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                    <td>
+                        <button type="button" onclick="openEdit(@item.WellnessUpdateId)">Edit</button>
+                        <button type="button" onclick="openDelete(@item.WellnessUpdateId, '@item.Title')">Delete</button>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 
+    <div id="editModal" style="display:none; position:fixed; top:20%; left:35%; width:30%; background:#fff; border:1px solid #000; padding:15px;">
+        <h4>Edit Wellness Update</h4>
+       
+        <form method="post" asp-page-handler="Edit" enctype="multipart/form-data" id="editForm">
+            <input type="hidden" id="editId" name="WellnessUpdateId" />
+            <div>
+                <strong>Title</strong>
+                <input type="text" id="editTitle" name="Title" />
+            </div>
+            <div>
+                <strong>Content</strong>
+                <textarea id="editContent" name="Content" rows="4"></textarea>
+            </div>
+            <div>
+                <strong>Source</strong>
+                <input type="text" id="editSourceUrl" name="SourceUrl" />
+            </div>
+            <div>
+                <strong>Image</strong>
+                <input type="file" id="editImageFile" name="ImageFile" />
+            </div>
+            <br />
+            <button type="submit">Save</button>
+            <button type="button" onclick="closeEdit()">Cancel</button>
+        </form>
+    </div>
+
+
+    <div id="deleteModal" style="display:none; position:fixed; top:30%; left:35%; width:30%; background:#fff; border:1px solid #000; padding:15px;">
+        <h4>Delete Wellness Update</h4>
+        <p>Are you sure you want to delete <span id="deleteTitle"></span>?</p>
+        
+        <form method="post" asp-page-handler="Delete" id="deleteForm">
+            <input type="hidden" id="deleteId" name="WellnessUpdateId" />
+            <button type="submit">Yes, Delete</button>
+            <button type="button" onclick="closeDelete()">Cancel</button>
+        </form>
+    </div>
+
 </center>
+<script>
+   
+    const allUpdates = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.AllUpdates));
+
+    
+    function openEdit(id) {
+        const update = allUpdates.find(x => x.WellnessUpdateId === id);
+        if (!update) return;
+
+        document.getElementById('editId').value = update.WellnessUpdateId;
+        document.getElementById('editTitle').value = update.Title;
+        document.getElementById('editContent').value = update.Content;
+        document.getElementById('editSourceUrl').value = update.SourceUrl || '';
+
+        document.getElementById('editModal').style.display = 'block';
+    }
+
+    function closeEdit() {
+        document.getElementById('editModal').style.display = 'none';
+    }
+
+    
+    function openDelete(id, title) {
+        document.getElementById('deleteId').value = id;
+        document.getElementById('deleteTitle').innerText = title;
+        document.getElementById('deleteModal').style.display = 'block';
+    }
+
+    function closeDelete() {
+        document.getElementById('deleteModal').style.display = 'none';
+    }
+</script>
