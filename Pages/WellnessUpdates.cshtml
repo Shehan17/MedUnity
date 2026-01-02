@@ -2,3 +2,21 @@
 @model MedUnity.Pages.WellnessUpdatesModel
 @{
 }
+
+<center>
+
+    <h4>Wellness Updates</h4>
+
+    <div>
+        <h4>@Model.Title</h4>
+
+        <p>@Model.Content</p>
+
+        <img src="@Model.ImagePath" width="400" />
+
+        <p>
+            <small>Source: @Model.Source</small>
+        </p>
+    </div>
+
+</center>
