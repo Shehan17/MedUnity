@@ -10,6 +10,9 @@ namespace MedUnity.Data
 
         public DbSet<Patient> Patients => Set<Patient>();
         public DbSet<Appointment> Appointments => Set<Appointment>();
+        public DbSet<Admin> Admin => Set<Admin>();
+
+        public DbSet<WellnessUpdate> WellnessUpdates => Set<WellnessUpdate>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

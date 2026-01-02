@@ -2,3 +2,40 @@
 @model MedUnity.Pages.ManageWellnessUpdateModel
 @{
 }
+<center> 
+
+<h4> Create Health Update </h4>
+
+
+<div class="manwellfrom">
+    <br />
+    <br />
+<form method="post">
+    <div class="manwelltitle">
+    <strong> Title </strong>
+
+    <input type="text" name= "Title"required />
+    </div>
+    <br />
+
+    <div class="manwellcontext">
+    <strong>  Content</strong>
+    
+    <textarea name="Content" rows="4" required  /> </textarea>
+    </div>
+
+    <br />
+    <div class="manwellimg">
+        <strong> Add Image</strong>
+        <input type="file"  id="image_input" name="Addimage" accept="image/png, image/jpeg">
+    </div>
+
+    <br />
+    <div class="manwellsource">
+        <strong> Source </strong>
+        <input type="Text" name="Source" />
+    </div>
+</form>
+
+</div>
+</center>

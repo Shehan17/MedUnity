@@ -1,4 +1,26 @@
 ﻿@page
 @model MedUnity.Pages.ManageAppointmentsModel
 @{
+    ViewData["Title"] = "Manage Appointments";
 }
+
+<h2>Manage Appointments</h2>
+
+@foreach (var appoiment in Model.Appointments)
+{
+    <div class="">
+
+        <label><strong> Appointment Date : </strong> <div>@appoiment.AppointmentDate.ToString("yyyy-MM-dd") </div> </label>
+        <br />
+        <label> <strong> Time Slot: </strong> <div>@appoiment.TimeSlot </div></label>
+        <br />
+        <label> <strong> Reason: </strong> <div> @appoiment.RejectedReason</div></label>
+        <br />
+        <label> <strong> Doctor Type: </strong> <div class="">@appoiment.DoctorSpecialty </div></label>
+        <br />
+        <label> <strong> Status: </strong> <div class="">@appoiment.Status.ToString() </div></label>
+        <br />
+    </div>
+
+}
+
