@@ -1,9 +1,8 @@
 using MedUnity.Data;
+using MedUnity.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
 using System.ComponentModel.DataAnnotations;
-using MedUnity.Models;
 
 namespace MedUnity.Pages
 {
@@ -13,18 +12,18 @@ namespace MedUnity.Pages
 
         public LoginModel(AppDbContext context)
         {
-            _context = context; 
+            _context = context;
         }
 
 
         [BindProperty, Required]
         public string FirstName { get; set; } = string.Empty;
-    
+
         [BindProperty, Required]
         public string LastName { get; set; } = string.Empty;
 
         [BindProperty, Required]
-        public string SpecialNote { get; set; } =string.Empty;
+        public string SpecialNote { get; set; } = string.Empty;
 
         [BindProperty, Required, EmailAddress]
         public string Email { get; set; } = string.Empty;
@@ -53,6 +52,7 @@ namespace MedUnity.Pages
                 FirstName = FirstName,
                 LastName = LastName,
                 // DateOfBirth =
+                DateOfBirth = DateTime.Now,
                 Email = Email,
                 PasswordHash = password,
                 PhoneNumber = PhoneNumber,
