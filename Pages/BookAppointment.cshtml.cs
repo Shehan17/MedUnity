@@ -58,7 +58,7 @@ namespace MedUnity.Pages
                 AppointmentDate = AppointmentDate,
                 TimeSlot = TimeSlot,
                 DoctorSpecialty = DoctorSpecialization,
-                PatientId = 0,
+                PatientId = 1,
                 Status = "Pending",
                 Patient = null,
                 RejectedReason = "",
