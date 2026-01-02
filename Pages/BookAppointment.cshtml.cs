@@ -3,7 +3,6 @@ using MedUnity.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
-using MedUnity.Models;
 
 namespace MedUnity.Pages
 {
@@ -15,12 +14,12 @@ namespace MedUnity.Pages
 
         public BookAppointmentModel(AppDbContext context)
         {
-            _context = context; 
+            _context = context;
         }
 
 
         [BindProperty, Required]
-        public DateTime AppointmentDate{ get; set; }
+        public DateTime AppointmentDate { get; set; }
 
         [BindProperty, Required]
         public string TimeSlot { get; set; } = string.Empty;
@@ -43,7 +42,7 @@ namespace MedUnity.Pages
         {
             if (!ModelState.IsValid)
             {
-                //return Page();
+                return Page();
             }
 
             var appointment = new Appointment
@@ -52,7 +51,10 @@ namespace MedUnity.Pages
                 TimeSlot = TimeSlot,
                 DoctorSpecialty = DoctorSpecialization,
 
+
+
             };
+
 
             _context.Appointments.Add(appointment);
             _context.SaveChanges();
