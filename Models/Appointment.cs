@@ -19,6 +19,9 @@ namespace MedUnity.Models
         public string TimeSlot { get; set; }
         public string DoctorSpecialty { get; set; } = null!;
 
+        [Required]
+        public required string Reason { get; set; }
+
         private string? _status;
         public string Status
         {
