@@ -34,6 +34,10 @@ namespace MedUnity.Pages
         [BindProperty, Required, Phone]
         public string PhoneNumber { get; set; } = string.Empty;
 
+        [BindProperty, Required]
+        public DateTime  DOB {  get; set; }
+
+
 
 
         public void OnGet()
@@ -51,8 +55,7 @@ namespace MedUnity.Pages
             {
                 FirstName = FirstName,
                 LastName = LastName,
-                // DateOfBirth =
-                DateOfBirth = DateTime.Now,
+                DateOfBirth = DOB,
                 Email = Email,
                 PasswordHash = password,
                 PhoneNumber = PhoneNumber,
