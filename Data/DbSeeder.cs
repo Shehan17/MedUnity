@@ -30,10 +30,10 @@ namespace MedUnity.Data
 
                 var patient = new Patient
                 {
-                    FirstName = "John",
-                    LastName = "Doe",
+                    FirstName = "Patient",
+                    LastName = "Demo",
                     DateOfBirth = new DateTime(1990, 5, 12),
-                    Email = "john.doe@email.com",
+                    Email = "patient@email.com",
                     PhoneNumber = "0771234567",
                     SpecialNote = "Allergic to penicillin",
                     // Give it a temporary value to satisfy the "required" compiler check
@@ -41,7 +41,7 @@ namespace MedUnity.Data
                 };
 
                 // Now immediately replace that empty string with a real, valid Base-64 hash
-                patient.PasswordHash = patientHasher.HashPassword(patient, "patient123");
+                patient.PasswordHash = patientHasher.HashPassword(patient, "patient");
 
                 context.Patients.Add(patient);
 
