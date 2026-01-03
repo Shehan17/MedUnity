@@ -1,42 +1,42 @@
 ﻿@page
 @model MedUnity.Pages.MyAppointmentsModel
-@{
-}
-<div class="myappheading"> 
 
-<h2> <center> My Appointments</center></h2>
-
+<div class="myappheading">
+    <h2><center>My Appointments</center></h2>
 </div>
 <br />
 
-<div class=" container_border border border-dark container  myappdetails bg-white w-75 p-4 ">
+@if (Model.MyAppointment != null)
+{
+    <div class="container_border border border-dark container myappdetails bg-white w-75 p-4">
 
-    <div class="container-fluid w-75 p-2 bg-light rounded-2 shadow-sm mt-2">
-        <label><strong> Appointment Date : </strong> <div class="myappdate"> </div> </label>
-    </div>
-   
-    <div class="container-fluid w-75 p-2 bg-light rounded-2 shadow-sm mt-2">
-        <label> <strong> Time Slot: </strong> <div class="myapptimeslot"> </div></label>
-    </div>
-
-    <div class="container-fluid w-75 p-2 bg-light rounded-2 shadow-sm mt-2">
-        <label> <strong> Reason: </strong> <div class="myappreason"> </div></label>
-    </div>
-
-    <div class="container-fluid w-75 p-2 bg-light rounded-2 shadow-sm mt-2">
-        <label> <strong> Doctor Specialisation: </strong> <div class="myappdoctype"> </div></label>
-    </div>
-
-
-   
-    <div class="d-flex justify-content-center mt-4">
-        <div class="myappstatus d-flex align-items-center gap-3">
-            <p class="mb-0 fw-bold text-danger bg-white shadow-sm p-2 ps-3 pe-3 rounded-pill">Pending</p>
-            <button type="button" class="btn remove-btn rounded-pill">
-                Remove
-            </button>
+        <div class="container-fluid w-75 p-2 bg-light rounded-2 shadow-sm mt-2">
+            <label><strong>Appointment Date:</strong> @Model.MyAppointment.AppointmentDate.ToString("yyyy-MM-dd")</label>
         </div>
-    </div>
-    
 
-</div>
+        <div class="container-fluid w-75 p-2 bg-light rounded-2 shadow-sm mt-2">
+            <label><strong>Time Slot:</strong> @Model.MyAppointment.TimeSlot</label>
+        </div>
+
+        <div class="container-fluid w-75 p-2 bg-light rounded-2 shadow-sm mt-2">
+            <label><strong>Reason:</strong> @Model.MyAppointment.Reason</label>
+        </div>
+
+        <div class="container-fluid w-75 p-2 bg-light rounded-2 shadow-sm mt-2">
+            <label><strong>Doctor Specialisation:</strong> @Model.MyAppointment.DoctorSpecialty</label>
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+            <div class="myappstatus d-flex align-items-center gap-3">
+                <p class="mb-0 fw-bold @(Model.MyAppointment.Status == "Pending" ? "text-danger" : "text-success") bg-white shadow-sm p-2 ps-3 pe-3 rounded-pill">
+                    @Model.MyAppointment.Status
+                </p>
+            </div>
+        </div>
+
+    </div>
+}
+else
+{
+    <p>No appointments found.</p>
+}
