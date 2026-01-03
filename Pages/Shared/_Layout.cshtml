@@ -43,9 +43,18 @@
 
                     </ul>
                     <ul class="bg-black navbar-nav rounded-pill pe-2 ps-2">
+                        @if (User.Identity.IsAuthenticated)
+                {
                         <li class="nav-item">
-                            <a class="nav-link fs-6 fw-bold  text-white" asp-area="" asp-page="/Login">Login / Register</a>
+                                <a class="nav-link fs-6 fw-bold  text-white" asp-area="" asp-page="">@User.Identity.Name</a>
                         </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link fs-6 fw-bold  text-white" asp-area="" asp-page="/Login">Login / Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
