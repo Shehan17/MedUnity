@@ -1,21 +1,28 @@
-using Microsoft.AspNetCore.Mvc;
+using MedUnity.Data;
+using MedUnity.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedUnity.Pages
 {
     public class WellnessUpdatesModel : PageModel
     {
-        [BindProperty]
-        public string Title { get; set; }
+        private readonly AppDbContext _context;
 
-        [BindProperty]
-        public string Content { get; set; }
-        [BindProperty]
-        public string ImagePath { get; set; }
-        [BindProperty]
-        public string Source { get; set; }
-        public void OnGet()
+        public WellnessUpdatesModel(AppDbContext context)
         {
+            _context = context;
+        }
+
+
+        public IList<WellnessUpdate> AllUpdates { get; set; } = new List<WellnessUpdate>();
+
+        public async Task OnGetAsync()
+        {
+   
+            AllUpdates = await _context.WellnessUpdates
+                .OrderByDescending(w => w.CreatedAt)
+                .ToListAsync();
         }
     }
 }
