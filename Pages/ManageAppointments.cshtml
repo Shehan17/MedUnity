@@ -1,26 +1,38 @@
 ﻿@page
-@model MedUnity.Pages.ManageAppointmentsModel
+@model MedUnity.Pages.Admin.ManageAppointmentsModel
 @{
     ViewData["Title"] = "Manage Appointments";
 }
 
 <h2>Manage Appointments</h2>
 
-@foreach (var appoiment in Model.Appointments)
-{
-    <div class="">
-            
-        <label><strong> Appointment Date : </strong> <div>@appoiment.AppointmentDate.ToString("yyyy-MM-dd") </div> </label>
-        <br />
-        <label> <strong> Time Slot: </strong> <div>@appoiment.TimeSlot </div></label>
-        <br />
-        <label> <strong> Reason: </strong> <div> @appoiment.RejectedReason</div></label>
-        <br />
-        <label> <strong> Doctor Type: </strong> <div class="">@appoiment.DoctorSpecialty </div></label>
-        <br />
-        <label> <strong> Status: </strong> <div class="">@appoiment.Status.ToString() </div></label>
-        <br />
-    </div>
+<div class="appointment-container" style="display:flex; flex-wrap:wrap; gap:15px;">
+    @foreach (var app in Model.Appointments)
+    {
+        <div style="border:1px solid #ccc; padding:15px; width:300px; border-radius:10px; box-shadow:2px 2px 5px rgba(0,0,0,0.1);">
+            <h3>@app.Patient?.FirstName @app.Patient?.LastName</h3>
+            <p><strong>Date:</strong> @app.AppointmentDate.ToString("yyyy-MM-dd")</p>
+            <p><strong>Time Slot:</strong> @app.TimeSlot</p>
+            <p><strong>Doctor Specialty:</strong> @app.DoctorSpecialty</p>
+            <p><strong>Status:</strong> @app.Status</p>
 
-}
+            @if (app.Status == "Rejected")
+            {
+                <p><strong>Rejected Reason:</strong> @app.RejectedReason</p>
+            }
 
+            <form method="post">
+                <input type="hidden" name="id" value="@app.AppointmentId" />
+                <select name="status">
+                    <option value="Pending" selected="@("Pending" == app.Status)">Pending</option>
+                    <option value="Completed" selected="@("Completed" == app.Status)">Completed</option>
+                    <option value="Rejected" selected="@("Rejected" == app.Status)">Rejected</option>
+                </select>
+
+                <input type="text" name="RejectedReason" placeholder="Reason if rejected" value="@app.RejectedReason" />
+
+                <button type="submit" formaction="?handler=UpdateStatus">Update</button>
+            </form>
+        </div>
+    }
+</div>
