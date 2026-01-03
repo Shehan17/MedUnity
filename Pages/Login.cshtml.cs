@@ -22,8 +22,7 @@ namespace MedUnity.Pages
 
         // --- Input Models to separate validation ---
 
-        [BindProperty]
-        public RegisterInput RegisterData { get; set; }
+
 
         [BindProperty]
         public LoginInput LoginData { get; set; }
@@ -34,49 +33,14 @@ namespace MedUnity.Pages
         public void OnGet() { }
 
         // --- REGISTRATION HANDLER ---
-        public async Task<IActionResult> OnPostRegisterAsync()
-        {
 
-            ModelState.Remove("LoginData.Email");
-            ModelState.Remove("LoginData.Password");
-
-            if (!ModelState.IsValid)
-                return Page();
-
-            bool emailExists = await _context.Patients
-                .AnyAsync(p => p.Email == RegisterData.Email);
-
-            if (emailExists)
-            {
-                ErrorMessage = "Email already registered";
-                return Page();
-            }
-
-            var hasher = new PasswordHasher<Patient>();
-
-            var patient = new Patient
-            {
-                FirstName = RegisterData.FirstName,
-                LastName = RegisterData.LastName,
-                DateOfBirth = RegisterData.DOB,
-                Email = RegisterData.Email,
-                PhoneNumber = RegisterData.PhoneNumber,
-                SpecialNote = RegisterData.SpecialNote,
-                PasswordHash = hasher.HashPassword(null, RegisterData.Password)
-            };
-
-            _context.Patients.Add(patient);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("/Index");
-        }
 
 
         // --- LOGIN HANDLER ---
         public async Task<IActionResult> OnPostLoginAsync()
         {
 
-            ModelState.ClearValidationState(nameof(RegisterData));
+
 
             var admin = await _context.Admin.FirstOrDefaultAsync(a => a.Email == LoginData.Email);
 
@@ -142,16 +106,7 @@ namespace MedUnity.Pages
         }
 
         // --- Helper Classes for Validation ---
-        public class RegisterInput
-        {
-            [Required] public string FirstName { get; set; }
-            [Required] public string LastName { get; set; }
-            [Required, EmailAddress] public string Email { get; set; }
-            [Required, MinLength(6)] public string Password { get; set; }
-            [Required] public string PhoneNumber { get; set; }
-            [Required] public DateTime DOB { get; set; }
-            public string SpecialNote { get; set; }
-        }
+
 
         public class LoginInput
         {

@@ -2,6 +2,7 @@ using MedUnity.Data;
 using MedUnity.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace MedUnity.Pages
 {
@@ -14,25 +15,22 @@ namespace MedUnity.Pages
             _context = context;
         }
 
-        public Appointment? MyAppointment { get; set; }
+        public List<Appointment> MyAppointments { get; set; } = new();
 
         public async Task OnGetAsync()
         {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            if (string.IsNullOrEmpty(email)) return;
 
-            var username = User.Identity?.Name;
-            if (string.IsNullOrEmpty(username)) return;
-
-          
             var patient = await _context.Patients
-                .FirstOrDefaultAsync(p => p.Email == username); 
+                .FirstOrDefaultAsync(p => p.Email == email);
+
             if (patient == null) return;
 
-         
-            MyAppointment = await _context.Appointments
-                .Include(a => a.Patient)
+            MyAppointments = await _context.Appointments
                 .Where(a => a.PatientId == patient.PatientId)
                 .OrderByDescending(a => a.AppointmentDate)
-                .FirstOrDefaultAsync();
+                .ToListAsync();
         }
     }
 }

@@ -15,8 +15,14 @@
         </p>
 
         <div class="home-highlights">
-            <p><strong>Physical Health</strong>  balanced diet, exercise, rest, hygiene</p>
-            <p><strong>Mental Health</strong>  emotional balance, resilience, purpose</p>
+            <ul class="bg-black navbar-nav rounded-pill pe-2 ps-2">
+                @if (!User.Identity.IsAuthenticated){
+                
+                    <li class="nav-item">
+                        <a class="nav-link fs-6 fw-bold text-white" asp-area="" asp-page="/Login">Login</a>
+                    </li>
+                }
+            </ul>
         </div>
     </div>
 </div>
