@@ -36,10 +36,16 @@ namespace MedUnity.Pages
         // --- REGISTRATION HANDLER ---
         public async Task<IActionResult> OnPostRegisterAsync()
         {
-            // Only validate the RegisterData part of the model
-            if (!ModelState.IsValid) return Page();
 
-            bool emailExists = await _context.Patients.AnyAsync(u => u.Email == RegisterData.Email);
+            ModelState.Remove("LoginData.Email");
+            ModelState.Remove("LoginData.Password");
+
+            if (!ModelState.IsValid)
+                return Page();
+
+            bool emailExists = await _context.Patients
+                .AnyAsync(p => p.Email == RegisterData.Email);
+
             if (emailExists)
             {
                 ErrorMessage = "Email already registered";
@@ -47,7 +53,8 @@ namespace MedUnity.Pages
             }
 
             var hasher = new PasswordHasher<Patient>();
-            var newPatient = new Patient
+
+            var patient = new Patient
             {
                 FirstName = RegisterData.FirstName,
                 LastName = RegisterData.LastName,
@@ -55,23 +62,44 @@ namespace MedUnity.Pages
                 Email = RegisterData.Email,
                 PhoneNumber = RegisterData.PhoneNumber,
                 SpecialNote = RegisterData.SpecialNote,
-                PasswordHash = "" // Placeholder, will be set below
+                PasswordHash = hasher.HashPassword(null, RegisterData.Password)
             };
 
-            // Hash the password before saving!
-            newPatient.PasswordHash = hasher.HashPassword(newPatient, RegisterData.Password);
-
-            _context.Patients.Add(newPatient);
+            _context.Patients.Add(patient);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("/Index");
         }
 
+
         // --- LOGIN HANDLER ---
         public async Task<IActionResult> OnPostLoginAsync()
         {
-            // Clear errors from registration fields so login can proceed
+
             ModelState.ClearValidationState(nameof(RegisterData));
+
+            var admin = await _context.Admin.FirstOrDefaultAsync(a => a.Email == LoginData.Email);
+
+            if (admin != null)
+            {
+                var hasher = new PasswordHasher<Admin>();
+                var result = hasher.VerifyHashedPassword(admin, admin.PasswordHash, LoginData.Password);
+                if (result == PasswordVerificationResult.Success)
+                {
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, admin.Email),
+                        new Claim(ClaimTypes.Email, admin.Email),
+                        new Claim("AdminId", admin.AdminId.ToString()),
+                        new Claim(ClaimTypes.Role, "Admin")
+                    };
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+                    return RedirectToPage("/ManageAppointments");
+                }
+            }
+
+
 
             var patient = await _context.Patients.FirstOrDefaultAsync(p => p.Email == LoginData.Email);
 
@@ -86,7 +114,8 @@ namespace MedUnity.Pages
                     {
                         new Claim(ClaimTypes.Name, $"{patient.FirstName} {patient.LastName}"),
                         new Claim(ClaimTypes.Email, patient.Email),
-                        new Claim("PatientId", patient.PatientId.ToString())
+                        new Claim("PatientId", patient.PatientId.ToString()),
+                        new Claim(ClaimTypes.Role, "Patient")
                     };
 
                     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -98,6 +127,14 @@ namespace MedUnity.Pages
 
             ErrorMessage = "Invalid email or password.";
             return Page();
+        }
+
+
+        public async Task<IActionResult> OnPostLogoutAsync()
+        {
+
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToPage("/Index");
         }
 
         // --- Helper Classes for Validation ---

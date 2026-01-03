@@ -19,24 +19,33 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1 me-auto ms-auto">
-                        <li class="nav-item">
-                            <a class=" nav-link  glow-link" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  glow-link" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  glow-link" asp-area="" asp-page="/BookAppointment">Appointment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  glow-link" asp-area="" asp-page="/ManageAppointments">ManageAppointment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  glow-link" asp-area="" asp-page="/ManageWellnessUpdate">ManageWelnessUpades</a>
-                        </li>
-                        <li class="nav-item"> 
-                            <a class="nav-link  glow-link" asp-area="" asp-page="/MyAppointments">MyAppointment</a>
-                        </li>
+                   
+                        @if (User.Identity.IsAuthenticated){
+
+                            if (User.IsInRole("Patient"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link  glow-link" asp-area="" asp-page="/BookAppointment">Appointment</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link  glow-link" asp-area="" asp-page="/MyAppointments">MyAppointment</a>
+                                </li>
+
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link  glow-link" asp-area="" asp-page="/ManageAppointments">ManageAppointment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link  glow-link" asp-area="" asp-page="/ManageWellnessUpdate">ManageWelnessUpades</a>
+                                </li>
+                            }
+
+                            }
+                           
+                        
                         <li class="nav-item">
                             <a class="nav-link  glow-link " asp-area="" asp-page="/WellnessUpdates">WellnessUpdate</a>
                         </li>
@@ -44,15 +53,32 @@
                     </ul>
                     <ul class="bg-black navbar-nav rounded-pill pe-2 ps-2">
                         @if (User.Identity.IsAuthenticated)
-                {
-                        <li class="nav-item">
-                                <a class="nav-link fs-6 fw-bold  text-white" asp-area="" asp-page="">@User.Identity.Name</a>
-                        </li>
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle fs-6 fw-bold text-white"
+                                   href="#"
+                                   id="userDropdown"
+                                   role="button"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    @User.Identity.Name
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+                                    <li>
+                                        <form method="post" asp-page="/Login" asp-page-handler="Logout">
+                                            <button type="submit" class="dropdown-item text-danger fw-bold">
+                                                Logout
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link fs-6 fw-bold  text-white" asp-area="" asp-page="/Login">Login / Register</a>
+                                <a class="nav-link fs-6 fw-bold text-white" asp-area="" asp-page="/Login">Login / Register</a>
                             </li>
                         }
                     </ul>
