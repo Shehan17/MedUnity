@@ -14,12 +14,12 @@ namespace MedUnity.Pages
             _context = context;
         }
 
-
+       
         public IList<WellnessUpdate> AllUpdates { get; set; } = new List<WellnessUpdate>();
 
+ 
         public async Task OnGetAsync()
         {
-   
             AllUpdates = await _context.WellnessUpdates
                 .OrderByDescending(w => w.CreatedAt)
                 .ToListAsync();

@@ -1,50 +1,41 @@
 ﻿@page
 @model MedUnity.Pages.WellnessUpdatesModel
-@{
-    ViewData["Title"] = "Wellness Updates";
-}
-<h1>@ViewData["Title"]</h1>
 
-<table border="1" cellpadding="5" cellspacing="0" width="90%">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Image</th>
-            <th>Source</th>
-            <th>Created At</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var update in Model.AllUpdates)
+<h2 class="fs-1 fw-bold text-uppercase">Wellness Updates</h2>
+
+@* Loop through all updates and display as individual articles *@
+@foreach (var update in Model.AllUpdates)
+{
+
+    <article class="update-article d-flex gap-4">
+
+        @if (!string.IsNullOrEmpty(update.ImagePath))
         {
-            <tr>
-                <td>@update.Title</td>
-                <td>
-                    @(update.Content.Length > 100 ? update.Content.Substring(0, 100) + "..." : update.Content)
-                </td>
-                <td>
-                    @if (!string.IsNullOrEmpty(update.ImagePath))
-                    {
-                        <img src="@update.ImagePath" width="100" />
-                    }
-                    else
-                    {
-                        <span>No Image</span>
-                    }
-                </td>
-                <td>
-                    @if (!string.IsNullOrEmpty(update.SourceUrl))
-                    {
-                        <a href="@update.SourceUrl" target="_blank">Link</a>
-                    }
-                    else
-                    {
-                        <span>-</span>
-                    }
-                </td>
-                <td>@update.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
-            </tr>
+            <div class="image-wrapper flex-shrink-0">
+                <img src="@update.ImagePath" alt="@update.Title" class="update-image" />
+                <a href="@update.ImagePath" target="_blank" class="view-full-btn">↗</a>
+            </div>
         }
-    </tbody>
-</table>
+
+        <div class="update-body">
+            <h1 class="update-title text-uppercase fw-bold">@update.Title</h1>
+
+            <p class="update-content">@update.Content</p>
+
+            @if (!string.IsNullOrEmpty(update.SourceUrl))
+            {
+                <p class="update-source">
+                    <a href="@update.SourceUrl" target="_blank">Source</a>
+                </p>
+            }
+
+            <p class="update-time">
+                <small>@update.CreatedAt.ToString("yyyy-MM-dd HH:mm")</small>
+            </p>
+        </div>
+
+    </article>
+
+
+
+}
