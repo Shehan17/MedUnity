@@ -191,3 +191,80 @@ h1{
         max-height: 240px;
     }
 }
+
+/* Page background vibe */
+.home-hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f4f7fb, #e9eff6);
+    padding: 40px 16px;
+}
+
+/* Card */
+.home-card {
+    max-width: 850px;
+    width: 100%;
+    background: #ffffff;
+    padding: 48px 42px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    animation: fadeUp 0.6s ease;
+}
+
+/* Title */
+.home-title {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 22px;
+    letter-spacing: -0.5px;
+}
+
+/* Main text */
+.home-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 28px;
+}
+
+/* Highlights */
+.home-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+    .home-highlights p {
+        background: #f6f8fb;
+        padding: 12px 18px;
+        border-radius: 999px;
+        font-size: 0.95rem;
+        color: #333;
+    }
+
+/* Subtle animation */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .home-title {
+        font-size: 2rem;
+    }
+
+    .home-card {
+        padding: 32px 24px;
+    }
+}
