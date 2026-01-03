@@ -1,22 +1,50 @@
 ﻿@page
 @model MedUnity.Pages.WellnessUpdatesModel
 @{
+    ViewData["Title"] = "Wellness Updates";
 }
+<h1>@ViewData["Title"]</h1>
 
-<center>
-
-    <h4>Wellness Updates</h4>
-
-    <div>
-        <h4>@Model.Title</h4>
-
-        <p>@Model.Content</p>
-
-        <img src="@Model.ImagePath" width="400" />
-
-        <p>
-            <small>Source: @Model.Source</small>
-        </p>
-    </div>
-
-</center>
+<table border="1" cellpadding="5" cellspacing="0" width="90%">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Image</th>
+            <th>Source</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var update in Model.AllUpdates)
+        {
+            <tr>
+                <td>@update.Title</td>
+                <td>
+                    @(update.Content.Length > 100 ? update.Content.Substring(0, 100) + "..." : update.Content)
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(update.ImagePath))
+                    {
+                        <img src="@update.ImagePath" width="100" />
+                    }
+                    else
+                    {
+                        <span>No Image</span>
+                    }
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(update.SourceUrl))
+                    {
+                        <a href="@update.SourceUrl" target="_blank">Link</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td>@update.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+            </tr>
+        }
+    </tbody>
+</table>
