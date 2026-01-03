@@ -1,50 +1,30 @@
 ﻿@page
 @model MedUnity.Pages.WellnessUpdatesModel
-@{
-    ViewData["Title"] = "Wellness Updates";
-}
-<h1>@ViewData["Title"]</h1>
 
-<table border="1" cellpadding="5" cellspacing="0" width="90%">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Image</th>
-            <th>Source</th>
-            <th>Created At</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var update in Model.AllUpdates)
+@* Loop through all updates and display as individual articles *@
+@foreach (var update in Model.AllUpdates)
+{
+    <article>
+       
+        <h1>@update.Title</h1>
+
+       
+        @if (!string.IsNullOrEmpty(update.ImagePath))
         {
-            <tr>
-                <td>@update.Title</td>
-                <td>
-                    @(update.Content.Length > 100 ? update.Content.Substring(0, 100) + "..." : update.Content)
-                </td>
-                <td>
-                    @if (!string.IsNullOrEmpty(update.ImagePath))
-                    {
-                        <img src="@update.ImagePath" width="100" />
-                    }
-                    else
-                    {
-                        <span>No Image</span>
-                    }
-                </td>
-                <td>
-                    @if (!string.IsNullOrEmpty(update.SourceUrl))
-                    {
-                        <a href="@update.SourceUrl" target="_blank">Link</a>
-                    }
-                    else
-                    {
-                        <span>-</span>
-                    }
-                </td>
-                <td>@update.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
-            </tr>
+            <img src="@update.ImagePath" alt="@update.Title" style="max-width:100%; height:auto;" />
         }
-    </tbody>
-</table>
+
+        
+        <p>@update.Content</p>
+
+        
+        @if (!string.IsNullOrEmpty(update.SourceUrl))
+        {
+            <p><a href="@update.SourceUrl" target="_blank">Source</a></p>
+        }
+
+       
+        <p><small>@update.CreatedAt.ToString("yyyy-MM-dd HH:mm")</small></p>
+        <hr />
+    </article>
+}
