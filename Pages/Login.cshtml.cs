@@ -82,8 +82,12 @@ namespace MedUnity.Pages
 
             if (admin != null)
             {
-                var hasher = new PasswordHasher<Admin>();
-                var result = hasher.VerifyHashedPassword(admin, admin.PasswordHash, LoginData.Password);
+                var hasher = new PasswordHasher<MedUnity.Models.Admin>();
+                var result = hasher.VerifyHashedPassword(
+                    admin,
+                    admin.PasswordHash,
+                    LoginData.Password
+                );
                 if (result == PasswordVerificationResult.Success)
                 {
                     var claims = new List<Claim>
