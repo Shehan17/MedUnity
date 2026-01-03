@@ -1,30 +1,41 @@
 ﻿@page
 @model MedUnity.Pages.WellnessUpdatesModel
 
+<h2 class="fs-1 fw-bold text-uppercase">Wellness Updates</h2>
+
 @* Loop through all updates and display as individual articles *@
 @foreach (var update in Model.AllUpdates)
 {
-    <article>
-       
-        <h1>@update.Title</h1>
 
-       
+    <article class="update-article d-flex gap-4">
+
         @if (!string.IsNullOrEmpty(update.ImagePath))
         {
-            <img src="@update.ImagePath" alt="@update.Title" style="max-width:100%; height:auto;" />
+            <div class="image-wrapper flex-shrink-0">
+                <img src="@update.ImagePath" alt="@update.Title" class="update-image" />
+                <a href="@update.ImagePath" target="_blank" class="view-full-btn">↗</a>
+            </div>
         }
 
-        
-        <p>@update.Content</p>
+        <div class="update-body">
+            <h1 class="update-title text-uppercase fw-bold">@update.Title</h1>
 
-        
-        @if (!string.IsNullOrEmpty(update.SourceUrl))
-        {
-            <p><a href="@update.SourceUrl" target="_blank">Source</a></p>
-        }
+            <p class="update-content">@update.Content</p>
 
-       
-        <p><small>@update.CreatedAt.ToString("yyyy-MM-dd HH:mm")</small></p>
-        <hr />
+            @if (!string.IsNullOrEmpty(update.SourceUrl))
+            {
+                <p class="update-source">
+                    <a href="@update.SourceUrl" target="_blank">Source</a>
+                </p>
+            }
+
+            <p class="update-time">
+                <small>@update.CreatedAt.ToString("yyyy-MM-dd HH:mm")</small>
+            </p>
+        </div>
+
     </article>
+
+
+
 }

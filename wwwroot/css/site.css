@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap');
 
 
 html {
@@ -98,3 +98,96 @@ h1{
     .remove-btn:active {
         transform: scale(0.97);
     }
+
+
+.update-article {
+    background-color: #111;
+    color: #ddd;
+    padding: 24px;
+    margin-bottom: 24px;
+    border-radius: 14px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+}
+
+/* Image section */
+.image-wrapper {
+    position: relative;
+    width: 320px;
+}
+
+.update-image {
+    width: 100%;
+    height: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+
+/* Arrow button */
+.view-full-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: rgba(0,0,0,0.7);
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 6px 10px;
+    border-radius: 9999px;
+    transition: all 0.25s ease;
+}
+
+    .view-full-btn:hover {
+        background-color: #000;
+        box-shadow: 0 0 10px rgba(255,255,255,0.25);
+        transform: scale(1.05);
+    }
+
+/* Content section */
+.update-body {
+    flex: 1;
+}
+
+.update-title {
+    color: #fff;
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+}
+
+.update-content {
+    line-height: 1.7;
+    color: #ccc;
+    margin-bottom: 14px;
+}
+
+.update-source a {
+    background-color: white;
+    padding: 0.3rem;
+    border-radius:9999px;
+    color: #000;
+    text-decoration: none;
+}
+
+    .update-source a:hover {
+        text-shadow: 0 0 8px rgba(255,255,255,0.4);
+    }
+
+.update-time {
+    color: #888;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+    .update-article {
+        flex-direction: column;
+    }
+
+    .image-wrapper {
+        width: 100%;
+    }
+
+    .update-image {
+        max-height: 240px;
+    }
+}
