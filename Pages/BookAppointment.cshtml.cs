@@ -53,23 +53,31 @@ namespace MedUnity.Pages
                 return Page();
             }
 
-            var appointment = new Appointment
+            var patientIdClaim = User.Claims.FirstOrDefault(c => c.Type == "PatientId")?.Value;
+
+            if (patientIdClaim != null)
             {
-                AppointmentDate = AppointmentDate,
-                TimeSlot = TimeSlot,
-                DoctorSpecialty = DoctorSpecialization,
-                PatientId = 0,
-                Status = "Pending",
-                Patient = null,
-                RejectedReason = "",
-                Reason = ReasonForVisit
 
-            };
+                int patientId = int.Parse(patientIdClaim);
 
 
-            _context.Appointments.Add(appointment);
-            _context.SaveChanges();
+                var appointment = new Appointment
+                {
+                    AppointmentDate = AppointmentDate,
+                    TimeSlot = TimeSlot,
+                    DoctorSpecialty = DoctorSpecialization,
+                    PatientId = patientId,
+                    Status = "Pending",
+                    Patient = null,
+                    RejectedReason = "",
+                    Reason = ReasonForVisit
 
+                };
+
+
+                _context.Appointments.Add(appointment);
+                _context.SaveChanges();
+            }
             return RedirectToPage("Index");
 
         }

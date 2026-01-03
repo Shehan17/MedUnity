@@ -10,7 +10,7 @@ namespace MedUnity.Data
         {
             context.Database.Migrate();
 
-            
+
             if (!context.Admin.Any())
             {
                 var passwordHasher = new PasswordHasher<Admin>();
@@ -36,18 +36,18 @@ namespace MedUnity.Data
                     Email = "john.doe@email.com",
                     PhoneNumber = "0771234567",
                     SpecialNote = "Allergic to penicillin",
-                    PasswordHash = "asdasdasdasda",
-                    
-
-                    
-
+                    // Give it a temporary value to satisfy the "required" compiler check
+                    PasswordHash = ""
                 };
 
-                context.Patients.Add(patient);
-            }
+                // Now immediately replace that empty string with a real, valid Base-64 hash
+                patient.PasswordHash = patientHasher.HashPassword(patient, "patient123");
 
-           
-            context.SaveChanges();
+                context.Patients.Add(patient);
+
+
+                context.SaveChanges();
+            }
         }
     }
 }
