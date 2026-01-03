@@ -73,3 +73,22 @@ Use the following demo accounts to access the system:
 - **Password:** `admin`
 
 > These accounts are provided for testing and demonstration purposes only.
+
+
+
+## 🗄️ Local Database Setup (Data Seeding)
+
+When running the project **locally**, you need to seed initial data (admin, patient, sample appointments).
+
+### 🔧 Steps
+
+1. Open `Program.cs`
+
+2. **Uncomment** the following code block:
+
+```csharp
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    DbSeeder.SeedData(context);
+}
