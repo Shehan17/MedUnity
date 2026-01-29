@@ -1,7 +1,23 @@
-﻿# 🏥 Healthcare Appointment Management System
+# 🏥 MedUnity – Healthcare Appointment Management System
 
-A web-based healthcare appointment management system built using **ASP.NET Core Razor Pages**.  
-This project allows users to book appointments, manage wellness data, and view appointment history through a clean and responsive UI.
+![Hackathon](https://img.shields.io/badge/HackMS-4th%20Place-success)
+
+MedUnity is a cloud-based healthcare appointment management system built using **ASP.NET Core Razor Pages**.  
+The platform enables patients to book and track appointments while providing access to **admin-approved wellness updates with verified source links**.
+
+This project was developed for **HackMS 2026**, where it secured **🏆 4th place** for its real-world relevance, system design, and usability.
+
+---
+
+## 🏆 Hackathon Achievement
+
+- **Event:** HackMS 2026  
+- **Result:** 🥉 **4th Place**  
+- **Evaluation Criteria:**  
+  - Problem relevance  
+  - Technical implementation  
+  - UI/UX design  
+  - Innovation and impact  
 
 ---
 
@@ -14,25 +30,45 @@ This project allows users to book appointments, manage wellness data, and view a
 ![Azure](https://img.shields.io/badge/Azure-Deployment-blue)
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-Database-red)
 
-- **Backend:** .NET (C#) – Razor Pages  
+- **Backend:** ASP.NET Core (C#) – Razor Pages  
 - **Frontend:** HTML, CSS, Bootstrap  
 - **Database:** SQL Server  
 - **Deployment:** Microsoft Azure  
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-- User authentication (Login)
+### 👤 Patient Features
+- Secure authentication
 - Book healthcare appointments
-- View and manage appointments
-- Update wellness information
-- Responsive UI using Bootstrap
-- Secure database integration
+- View appointment history and status
+- Access verified wellness updates
+- Clean, responsive UI
+
+### 🛠️ Admin Features
+- View and manage all patient appointments
+- Update appointment status (Pending / Completed / Rejected)
+- Add rejection reasons for transparency
+- Create and manage wellness updates
+- Control and verify health-related content
 
 ---
 
-## 📸 Screenshots
+## 🌱 Wellness Updates (Trust & Transparency)
+
+MedUnity includes a **Wellness Update section** that works as a curated health information feed.
+
+- All wellness content is **reviewed and approved by administrators**
+- Each update includes **source links** to trusted medical or health-related websites
+- Ensures patients receive **accurate, verified, and reliable information**
+- Helps prevent misinformation while promoting preventive healthcare
+
+> *All wellness updates on MedUnity are admin-approved and include source references for verification.*
+
+---
+
+## 📸 Wireframes
 
 ### 🏠 Home Page
 ![Home Page](docs/HomePage.jpeg)
@@ -41,12 +77,12 @@ This project allows users to book appointments, manage wellness data, and view a
 ![Login Page](docs/Login.jpeg)
 
 ### 📅 Book Appointment
-![Book Appointment](docs/BookAppointment.jpeg)
+![Book Appointment](docs/BookAppoinment.jpeg)
 
 ### 📋 My Appointments
-![My Appointments](docs/MyAppointments.jpeg)
+![My Appointments](docs/MyAppoinments.jpeg)
 
-### 🧘 Manage Wellness Update
+### 🧘 Manage Wellness Updates (Admin)
 ![Manage Wellness](docs/ManageWellnessUpdate.jpeg)
 
 ---
@@ -54,15 +90,13 @@ This project allows users to book appointments, manage wellness data, and view a
 ## 🗂️ System Design
 
 ### ER Diagram
-![ER Diagram](docs/ER Diagram.jpeg)
+![ER Diagram](docs/ERDiagram.jpeg)
 
 ---
 
----
+## 🔐 Login Credentials (Demo Accounts)
 
-## 🔐 Login Credentials
-
-Use the following demo accounts to access the system:
+Use the following demo accounts for testing and evaluation:
 
 ### 👤 Patient Account
 - **Email:** `patient@email.com`
@@ -72,23 +106,21 @@ Use the following demo accounts to access the system:
 - **Email:** `admin@email.com`
 - **Password:** `admin`
 
-> These accounts are provided for testing and demonstration purposes only.
+> These accounts are provided for demonstration purposes only.
 
-
+---
 
 ## 🗄️ Local Database Setup (Data Seeding)
 
-When running the project **locally**, you need to seed initial data (admin, patient, sample appointments).
+When running the project **locally**, initial data such as demo users and sample appointments must be seeded.
 
-### 🔧 Steps
+### 🔧 Steps to Enable Seeding
 
 1. Open `Program.cs`
-
-2. **Uncomment** the following code block:
-
+2. Locate the following code block:
 ```csharp
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    DbSeeder.SeedData(context);
-}
+// using (var scope = app.Services.CreateScope())
+// {
+//     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+//     DbSeeder.SeedData(context);
+// }
